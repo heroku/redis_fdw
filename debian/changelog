@@ -1,0 +1,17 @@
+postgresql-redis (1.2-1heroku1~precise) precise; urgency=medium
+
+  * Write support.
+
+ -- Timothée Peignier <tim@heroku.com>  Wed, 10 Jun 2015 22:35:06 +0000
+
+postgresql-redis (1.1-1heroku1~precise) precise; urgency=medium
+
+  * Cursor support.
+
+ -- Timothée Peignier <tim@heroku.com>  Wed, 10 May 2015 20:35:26 +0000
+
+postgresql-redis (1.0-1heroku1~trusty) trusty; urgency=medium
+
+  * Initial release.
+
+ -- Timothée Peignier <tim@heroku.com>  Wed, 04 March 2015 20:42:24 +0000
