@@ -4,7 +4,7 @@
 include /usr/share/postgresql-common/pgxs_debian_control.mk
 
 define PG_SUPPORTED_VERSIONS
-9.4
+9.5
 endef
 
 export PG_SUPPORTED_VERSIONS

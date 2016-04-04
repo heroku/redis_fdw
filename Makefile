@@ -11,7 +11,7 @@
 #
 # IDENTIFICATION
 #                 redis_fdw/Makefile
-# 
+#
 ##########################################################################
 
 MODULE_big = redis_fdw
@@ -45,3 +45,12 @@ endif
 
 # we put all the tests in a test subdir, but pgxs expects us not to, darn it
 override pg_regress_clean_files = test/results/ test/regression.diffs test/regression.out tmp_check/ log/
+
+DEBUILD_ROOT = /tmp/redis_fdw
+
+deb:
+	mkdir -p $(DEBUILD_ROOT) && rm -rf $(DEBUILD_ROOT)/*
+	rsync -Ca --exclude=build/* ./ $(DEBUILD_ROOT)/
+	cd $(DEBUILD_ROOT) && sudo make -f debian/rules binary
+	cd $(DEBUILD_ROOT) && sudo debuild -us -uc -sa
+	cp -a /tmp/redis_fdw* /tmp/postgresql-9.* build/
