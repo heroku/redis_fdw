@@ -33,7 +33,7 @@ SHLIB_LINK += -lhiredis
 USE_PGXS = 1
 
 ifeq ($(USE_PGXS),1)
-PG_CONFIG = pg_config
+PG_CONFIG = /usr/lib/postgresql/9.4/bin/pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
 else

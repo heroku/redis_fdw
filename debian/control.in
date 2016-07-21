@@ -3,7 +3,7 @@ Section: database
 Priority: optional
 Maintainer: Timothée Peignier <tim@heroku.com>
 Uploaders: Timothée Peignier <tim@heroku.com>
-Build-Depends: debhelper (>= 8.0.0), postgresql-server-dev-all, postgresql-server-dev-9.5, libhiredis-dev
+Build-Depends: debhelper (>= 8.0.0), postgresql-server-dev-all, postgresql-server-dev-9.4, libhiredis-dev
 Standards-Version: 3.9.5
 Homepage: https://github.com/pg-redis-fdw/redis_fdw
 
