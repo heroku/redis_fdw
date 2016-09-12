@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+include /usr/share/postgresql-common/pgxs_debian_control.mk
+
+define PG_SUPPORTED_VERSIONS
+9.6
+endef
+
+export PG_SUPPORTED_VERSIONS
+
+override_dh_auto_configure:
+	# omitted because the package does not use autoconf
+
+override_dh_auto_build:
+	+pg_buildext build build-%v
+
+override_dh_auto_test:
+	# nothing to do here, see debian/tests/* instead
+
+override_dh_auto_install:
+	+pg_buildext install build-%v postgresql-%v-redis
+
+override_dh_installdocs:
+	dh_installdocs --all README.*
+
+override_dh_auto_clean:
+	+pg_buildext clean build-%v
+
+%:
+	dh $@

@@ -1,0 +1,14 @@
+Source: postgresql-redis
+Section: database
+Priority: optional
+Maintainer: Timothée Peignier <tim@heroku.com>
+Uploaders: Timothée Peignier <tim@heroku.com>
+Build-Depends: debhelper (>= 8.0.0), postgresql-server-dev-all, postgresql-server-dev-9.5, libhiredis-dev
+Standards-Version: 3.9.5
+Homepage: https://github.com/pg-redis-fdw/redis_fdw
+
+Package: postgresql-9.6-redis
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, postgresql-9.6
+Description: Foreign Data Wrapper for the Redis key/value database.
+

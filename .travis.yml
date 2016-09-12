@@ -1,0 +1,40 @@
+language: cpp
+sudo: required
+dist: trusty
+env:
+  global:
+    - USE_PGXS=1
+    - secure: d/456qcx88TGuEz0oiaKaZr7X+8VFF/3wk4WIf8Pfd6nnpux5loPmQD6qFa7HHQuqaGUGLvBOdBCLhjX6ewt+r2I7S64wgwBO4xd+2g4ZM52AAi6BLronH0dkzj7qkx/shzg6ehkW7K2f8nXGrIsExWZspW8U8DPcrPbEIFuFdYmhgqmE1/Cg6URI70XCJgc7M4hsqUh2UK/7oXzaJ11mGYFqXs7kbSJJJ7LvOps8ZBMwoyIvmtRXZ4V89ZUF7PhlT7ZrSjByfdeCBWUAHBVSEV7lAsrBkIMzqrhSFy9e8YsRoR0FdXf4Aff6CYB9170a0trzloe/ZbGCecfkhe8I0+LkP8PsxAJURJowXkE1VInftNTNrqERjFE3V4K6a6QfqkOevMYKW5Iw6pHDEKinjCGhBaoOpIDWFR/KvMJdb52QpVLWZrDWQ6xWzQL0bE49b5wiyMn3T9yu9RQ7xNosshOsBedWpNDd1Vtfm0hJhQzG7YVz9aF/dGz42k6ncYTW2dxDy0dAIesV8clbhMT6CdxSDEBnTzbPIkofyUMeFyVr7NzIxH6iPW2l5hRzD8nKccOasbKhfO9nTdA7YnD5tMwfcXjcO1Y5uLrGnZ1x9paqccBT6xDy9Gdux2zZa2KGywvAwQTYhfQeBpV9B/k3cZIl4Ve4I4upvImXZPlMrk=
+  matrix:
+    - DIST=precise
+    - DIST=trusty
+before_install:
+  - sudo apt-get -y install wget software-properties-common
+  - sudo add-apt-repository -y "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main 9.6" && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  - wget --quiet -O - https://packagecloud.io/gpg.key | sudo apt-key add -
+  - curl -s https://${TOKEN}:@packagecloud.io/install/repositories/heroku/dod/script.deb.sh
+    | sudo bash
+  - sudo apt-get update
+  - sudo apt-get -y --force-yes --no-install-recommends install libhiredis-dev rsync
+    apt-transport-https build-essential devscripts dh-make libkrb5-dev postgresql-common
+    postgresql-server-dev-all postgresql-server-dev-9.6
+  - echo '9.6' > ~/.pg_supported_versions
+before_script:
+  - make clean
+script:
+  - make
+  - pg_buildext updatecontrol
+  - make deb
+deploy:
+  provider: packagecloud
+  dist: ubuntu/$DIST
+  package_glob: build/*.deb
+  username: heroku
+  repository: dod
+  skip_cleanup: true
+  token:
+    secure: S21ycCBln9+OaUwf4cfvD9vBvh+pKBzMxm4iH1EiW1RSVCwLaHhPcj5KonjmhiHS6PFWF0aJz+EeeujhT2YdLCq7rfKIKT5IsUSt0B23sMj7sdxbnqx3f2lUUbUtBk/Ber5SpfyVW1bhYdJYpvR/+3yw6FTptCrrRyavrAS5X6cquTvFLUAa4HH8lTT1lUmtcPzF1i4l4bv9u3a7HEvKOOaiUTKHdZND+PZfCClN0d1EK6sZT5Nb/qObSaUNKv1SvpXx7h4OjLvp0TVEz47Ex7E7wdrD538z7KvgjxdtU6j+L9EHlTzJPclFwf59kafwqeRUgA6NbD6+lO6dXf91N8hj7hj17a8rvyzcPzdNVPBkwQ/bozwc/+IIzl3Ay78cwjBKMA7eNNOBt9bm4kfKu8wCT1KOzWRBBzZnBD/swLiutfJQLCg8tOGd4pT07LQRD7aaWHx9BwvlDjxbH7hxa9euskMQ/frQhhfdPQ0Bb/buvhSAzw2Zi8MTNH1lKB1K+D5Y5QFvfa7pC9/ngNiTpHPZUCrX5I3VHEMxEl4Br9vuuAYL+tSgJj8XYWyKlACZZNzfGUVJKWcbkioP+cflBnFPJZRjImzGye6FuIxL3lUIeYLPFjEua/rDVvc4A92C5gUMe0xCifow1KTj4yabLU7u9ioTgtMDPlxSO5mQkgk=
+  on:
+    branch: debian-9.6
+notifications:
+  email: false

@@ -1,0 +1,6 @@
+a60f0ec27323d9306a4db94fe1682663  usr/lib/postgresql/9.6/lib/redis_fdw.so
+a0aa361e7a2dc01b94cd5f0b5e17e7d4  usr/share/doc/postgresql-9.6-redis/README.md.gz
+abe4210aaa57cc6bbc722826f314a694  usr/share/doc/postgresql-9.6-redis/changelog.Debian.gz
+32e1418cfdac38b48263150c2f45f35c  usr/share/doc/postgresql-9.6-redis/copyright
+9b8ccff96f1d3d5204f2ab32c9b218f4  usr/share/postgresql/9.6/extension/redis_fdw--1.0.sql
+96c2dc8a85dc30344b5f4703b7857406  usr/share/postgresql/9.6/extension/redis_fdw.control

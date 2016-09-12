@@ -1,0 +1,11 @@
+Package: postgresql-9.6-redis
+Source: postgresql-redis
+Version: 1.4-1heroku1~precise
+Architecture: amd64
+Maintainer: Timothée Peignier <tim@heroku.com>
+Installed-Size: 95
+Depends: libc6 (>= 2.4), libhiredis0.10 (>= 0.10.1), postgresql-9.6
+Section: database
+Priority: optional
+Homepage: https://github.com/pg-redis-fdw/redis_fdw
+Description: Foreign Data Wrapper for the Redis key/value database.
